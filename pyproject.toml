@@ -1,0 +1,15 @@
+[project]
+name = "sira"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "json2latex>=0.0.2",
+    "langchain-ollama>=1.0.0",
+    "langchain-openai>=1.0.2",
+    "langgraph>=1.0.3",
+    "pydantic",
+    "python-dotenv>=1.2.1",
+]
+
