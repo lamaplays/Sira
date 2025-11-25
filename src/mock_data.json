@@ -31,7 +31,7 @@
     }
   ],
 
-  "relevant_skills": {
+  "skills": {
     "programming": "Java, Python, SQL, C#, LaTeX",
     "libraries": "Flask, React Native, HTML, CSS, node.js, Git, NumPy, Pandas, Pytesseract, Docker, Unity game engine",
     "other": "Strong understanding of software development principles and RAG pipeline. Experience with AI/ML model development, full-stack web applications, and mobile app development."

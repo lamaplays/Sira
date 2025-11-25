@@ -2,10 +2,12 @@
 from jinja2 import FileSystemLoader, Environment
 
 
-def latex_cv(json_cv):
+def md_cv(json_cv):
     
     env = Environment(
     loader=FileSystemLoader("."),
+    comment_start_string='{=',
+    comment_end_string='=}',
     block_start_string="((*",
     block_end_string="*))",
     variable_start_string="(((",
@@ -13,13 +15,12 @@ def latex_cv(json_cv):
     autoescape=False,  
     )
     
-    
-    template = env.get_template("generators/cv_template.tex")
+    template = env.get_template("generators/cv_template.md")
     tex_output = template.render(**json_cv)
     
-    with open("new_cv.tex","w",encoding="utf-8") as f:
+    with open("new_cv.md","w",encoding="utf-8") as f:
         f.write(tex_output)
-        print("latex cv generated")    
+        print("markdown cv generated")    
     
     
 

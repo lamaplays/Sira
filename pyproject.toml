@@ -11,5 +11,10 @@ dependencies = [
     "langgraph>=1.0.3",
     "pydantic",
     "python-dotenv>=1.2.1",
+    "langchain",
+    "langchain-huggingface>=1.0.1",
 ]
 
+[project.scripts]
+
+sira-ai = "sira.something:main"

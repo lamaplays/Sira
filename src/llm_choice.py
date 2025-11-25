@@ -1,25 +1,27 @@
 from models import outputCV
 
-def get_llm():
+
+def get_llm(model_name: str | None = None):
+
     try:
-       from langchain_ollama import ChatOllama
-       model = ChatOllama(
-            model="deepseek-r1:8b",
+        if model_name is None:
+            raise ValueError("No local model specified")
+
+        from langchain_ollama import ChatOllama
+
+        model = ChatOllama(
+            model=model_name,
             format="json",
             temperature=0.7,
-            reasoning= False,
-            )   
-       structured_llm = model.with_structured_output(outputCV)
- 
-       return structured_llm
+            
+        )
+        return model.with_structured_output(outputCV)
 
-    
-    except:
-      from dotenv import load_dotenv
-      load_dotenv()
-      from langchain_openai import ChatOpenAI
-      model = ChatOpenAI(model="gpt-5-mini",)
-      structured_llm = model.with_structured_output(outputCV)
-      return structured_llm
+    except Exception as e:
+        print(f"[sira] Could not load Ollama model '{model_name}': {e}")
+        from dotenv import load_dotenv
+        load_dotenv()
+        from langchain_openai import ChatOpenAI
 
-
+        model = ChatOpenAI(model="gpt-5-mini")
+        return model.with_structured_output(outputCV)
