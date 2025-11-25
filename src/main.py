@@ -1,6 +1,6 @@
 from agent import build_graph
 from utils import load_validate
-from generators.cv_generater import md_cv
+from generators.cv_generator import md_cv
 from cli import parsing_args
 from pathlib import Path
 from config import load_config, save_config
@@ -39,7 +39,8 @@ def main():
         print(f"tailoring cv using {model_name} from {cv_path}")
         
     except FileNotFoundError as e:
-       SystemExit
+        print(e)
+        raise SystemExit
     
     
     while True:
