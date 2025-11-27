@@ -1,4 +1,4 @@
-from models import outputCV
+from sira.models import outputCV
 
 
 def get_llm(model_name: str | None = None):
@@ -19,9 +19,4 @@ def get_llm(model_name: str | None = None):
 
     except Exception as e:
         print(f"[sira] Could not load Ollama model '{model_name}': {e}")
-        from dotenv import load_dotenv
-        load_dotenv()
-        from langchain_openai import ChatOpenAI
-
-        model = ChatOpenAI(model="gpt-5-mini")
-        return model.with_structured_output(outputCV)
+        raise SystemExit("[sira] Exiting due to model loading failure.")

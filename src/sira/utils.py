@@ -1,4 +1,4 @@
-from models import outputCV
+from sira.models import outputCV
 import json
 from pathlib import Path
 

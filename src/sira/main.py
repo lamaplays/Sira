@@ -1,10 +1,10 @@
-from agent import build_graph
-from utils import load_validate
-from generators.cv_generator import md_cv
-from cli import parsing_args
+from sira.agent import build_graph
+from sira.utils import load_validate
+from sira.generators.cv_generator import md_cv
+from sira.cli import parsing_args
 from pathlib import Path
-from config import load_config, save_config
-from llm_choice import get_llm
+from sira.config import load_config, save_config
+from sira.llm_choice import get_llm
 
 
 def main():
@@ -47,7 +47,7 @@ def main():
         
         job_desc = input("Enter your job description\nOr type 'bye' to exit:\n ")
         if job_desc.strip().lower() in {"bye", "goodbye", "exit", "quit"}:
-            print("cya")
+            print("goodbye!")
             break
          
         print("Tailoring in process...\n")

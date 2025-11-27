@@ -1,11 +1,13 @@
 import argparse
 from pathlib import Path
+import sys
 
 
 def parsing_args():
     parser = argparse.ArgumentParser(
         prog="sira",
         description="Automate CV tailoring with local LLMs."
+        
     )
 
     parser.add_argument(
@@ -23,9 +25,14 @@ def parsing_args():
 
     parser.add_argument(
         "-s", "--store",
+        
         action="store_true",
         help="Save CV path and model choice for future runs"
     )
+    
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
   
 
     return parser.parse_args()

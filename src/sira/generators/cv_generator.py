@@ -20,7 +20,7 @@ def md_cv(json_cv):
     
     with open("new_cv.md","w",encoding="utf-8") as f:
         f.write(tex_output)
-        print("markdown cv generated")    
+        print("markdown CV generated")    
     
     
 

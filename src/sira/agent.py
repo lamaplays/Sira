@@ -1,9 +1,8 @@
-#TODO:
-# check your notes
+
 
 from langgraph.graph import StateGraph
-from models import outputCV, siraState
-from prompts import user_prompt, system_prompt
+from sira.models import siraState
+from sira.prompts import user_prompt, system_prompt
 from langchain.messages import SystemMessage, HumanMessage
 
  

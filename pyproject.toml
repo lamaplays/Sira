@@ -1,20 +1,24 @@
 [project]
 name = "sira"
 version = "0.1.0"
-description = "Add your description here"
+description = "CV tailoring agent"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.14"
 dependencies = [
     "jinja2>=3.1.6",
     "langchain-ollama>=1.0.0",
     "langchain-openai>=1.0.2",
     "langgraph>=1.0.3",
     "pydantic",
-    "python-dotenv>=1.2.1",
     "langchain",
     "langchain-huggingface>=1.0.1",
 ]
 
 [project.scripts]
 
-sira-ai = "sira.something:main"
+sira = "sira.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
