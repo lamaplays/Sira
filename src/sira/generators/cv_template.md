@@ -1,9 +1,3 @@
-# ((( name )))
-
-**Email:** ((( email ))) | **Phone:** ((( phone ))) | **Location:** ((( location )))  
-**LinkedIn:** [((( linkedin )))](((( linkedin )))) | **GitHub:** [((( github )))](((( github ))))
-
----
 
 ## Personal Statement
 

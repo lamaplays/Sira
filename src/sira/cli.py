@@ -22,7 +22,12 @@ def parsing_args():
         metavar="NAME",
         help="Ollama model name (uses stored config if not provided)"
     )
-
+    parser.add_argument(
+        "-j", "--job",
+        type=Path,
+        metavar="path",
+        help=" path to the txt file containing the job description",  
+    )
     parser.add_argument(
         "-s", "--store",
         

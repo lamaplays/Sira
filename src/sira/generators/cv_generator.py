@@ -1,11 +1,12 @@
 
-from jinja2 import FileSystemLoader, Environment
+from jinja2 import PackageLoader, Environment
 
 
-def md_cv(json_cv):
+
+def md_cv(json_cv: dict):
     
     env = Environment(
-    loader=FileSystemLoader("."),
+    loader=PackageLoader("sira", "generators"),
     comment_start_string='{=',
     comment_end_string='=}',
     block_start_string="((*",
@@ -15,14 +16,15 @@ def md_cv(json_cv):
     autoescape=False,  
     )
     
-    template = env.get_template("generators/cv_template.md")
-    tex_output = template.render(**json_cv)
+    template = env.get_template("cv_template.md")
+    md_output = template.render(**json_cv)
+
+    print("Tailored markdown CV generated\nPreview")    
+        
+    return md_output
     
-    with open("new_cv.md","w",encoding="utf-8") as f:
-        f.write(tex_output)
-        print("markdown CV generated")    
-    
-    
+
+
 
 
 

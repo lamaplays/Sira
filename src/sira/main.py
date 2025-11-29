@@ -12,10 +12,8 @@ def main():
     cfg = load_config()
     
     # resolve args
-    cv_path: Path | None = args.cv
-    if cv_path is None and "cv_path" in cfg:
-        cv_path = Path(cfg["cv_path"])
-   
+    
+    cv_path: Path | None = args.cv or cfg.get("cv_path")
     model_name: str | None = args.model or cfg.get("model_name")
    
     if args.store:
@@ -34,30 +32,105 @@ def main():
     
     try:
         cv_data = load_validate(cv_path)
+    except Exception as e:
+        print(f"[sira] Failed to load or validate CV data from '{cv_path}': {e}")
+        raise SystemExit from e
+    try:    
         llm = get_llm(model_name)
+    except Exception as e:
+        print(f"[sira] Failed to initialize LLM '{model_name}': {e}")
+        raise SystemExit from e
+    try:        
         graph = build_graph(llm)
-        print(f"tailoring cv using {model_name} from {cv_path}")
-        
-    except FileNotFoundError as e:
-        print(e)
-        raise SystemExit
+    except Exception as e:
+        print(f"[sira] Failed to build graph with LLM '{model_name}': {e}")
+        raise SystemExit from e
+    try:    
+        job_desc_path = args.job
+        with open(job_desc_path, "r", encoding="utf-8") as f:
+            job_desc = f.read()
+        print(f"using {model_name} from {cv_path}")
+    except FileNotFoundError:
+        print(f"[sira] Job description file '{job_desc_path}' not found.")
+        raise SystemExit from FileNotFoundError 
+    except Exception as e:
+        print(f"[sira] Failed to read job description from '{job_desc_path}': {e}")
+        raise SystemExit from e
     
     
-    while True:
-        
-        job_desc = input("Enter your job description\nOr type 'bye' to exit:\n ")
-        if job_desc.strip().lower() in {"bye", "goodbye", "exit", "quit"}:
-            print("goodbye!")
-            break
-         
-        print("Tailoring in process...\n")
-        result = graph.invoke({
+    print("Tailoring in process...\n")
+    result = graph.invoke({
             "cv_data": cv_data.model_dump(),
             "job_desc": job_desc,
-        })
-        json_output_cv = result["output_cv"].model_dump()
-        print(json_output_cv)
-        md_cv(json_output_cv)
+        })   
+    json_output_cv = result["output_cv"].model_dump()
+    new_cv = md_cv(json_output_cv) 
+    print("="*30)
+    print(new_cv)  
+    print("="*30)
+    
+
+    while True:
+        user_input = input("""
+Do you want to:
+1.rerun tailoring\n
+2.save current tailored cv\n
+3.change model\n
+4.exit\n""").strip()
+        if user_input == "1":
+            print(f"Using {model_name} with CV from {cv_path}")
+            print("Tailoring in process...\n")
+            result = graph.invoke({
+            "cv_data": cv_data.model_dump(),
+            "job_desc": job_desc,
+             })   
+            json_output_cv = result["output_cv"].model_dump()
+            new_cv = md_cv(json_output_cv) 
+            print("="*30)
+            print(new_cv)  
+            print("="*30)         
+            continue
+        
+        
+        
+        elif user_input == "2":
+            with open("tailored_cv.md","w",encoding="utf-8") as f:
+                f.write(new_cv)
+            print("tailored CV saved as tailored_cv.md")
+            continue
+                  
+    
+        elif user_input == "3":
+            new_model = input("Enter new model name: ").strip()
+            if not new_model:
+                print("Model name cannot be empty. Keeping current model.\n")
+                continue
+                
+            try:
+                new_llm = get_llm(new_model)
+                new_graph = build_graph(new_llm)
+                llm = new_llm
+                graph = new_graph
+                model_name = new_model
+                print(f"Model changed to {model_name}\n")
+            except Exception as e:
+                print(f"[sira] Failed to switch to model '{new_model}': {e}")
+                print(f"Keeping current model: {model_name}\n")
+            continue
+
+
+        elif user_input == "4":
+            print("goodbye")
+            break
+        else:
+            print("Invalid option.\n")
+            continue
+            
+
+        
+        
+        
+        
 
 
 if __name__ == "__main__":

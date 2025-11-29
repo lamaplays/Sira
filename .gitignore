@@ -10,3 +10,7 @@ wheels/
 .venv
 .env
 .vscode
+
+uv.lock
+new_cv.md
+tailored_cv.md
