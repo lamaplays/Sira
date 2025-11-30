@@ -1,9 +1,15 @@
 
+"""
+cv_generator.py
+
+This script generates a markdown CV using Jinja2 templates and user-provided JSON data.
+"""
+
 from jinja2 import PackageLoader, Environment
 
 
 
-def md_cv(json_cv: dict):
+def generate_markdown_cv(json_cv: dict):
     
     env = Environment(
     loader=PackageLoader("sira", "generators"),

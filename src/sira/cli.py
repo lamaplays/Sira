@@ -26,8 +26,8 @@ def parsing_args():
     parser.add_argument(
         "-j", "--job",
         type=Path,
-        metavar="path",
-        help=" path to the txt file containing the job description",  
+        metavar="PATH",
+        help="Path to the txt file containing the job description",  
     )
     parser.add_argument(
         "-s", "--store",

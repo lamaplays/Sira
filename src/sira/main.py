@@ -3,7 +3,7 @@ warnings.filterwarnings("ignore", message=".*Pydantic V1.*")
 
 from sira.agent import build_graph
 from sira.utils import load_validate
-from sira.generators.cv_generator import md_cv
+from sira.generators.cv_generator import generate_markdown_cv
 from sira.cli import parsing_args
 from pathlib import Path
 from sira.config import load_config, save_config
@@ -24,17 +24,17 @@ def main():
    
     if args.store:
         save_config(
-            cv_path=str(cv_path) if cv_path is not None else None,
+            cv_path=str(cv_path) if cv_path else None,
             model_name=model_name,
         )
     
-    data_persist = "cv_path" in cfg
-    model_choice_persist = "model_name" in cfg
+    data_persist = cfg.get("cv_path") is not None
+    model_choice_persist = cfg.get("model_name") is not None
 
     if cv_path is None and not data_persist:
         raise SystemExit("[sira] No CV file path provided or persisted.")
     if model_name is None and not model_choice_persist:
-        raise SystemExit ("[sira] No model name was specified or persisted.")
+        raise SystemExit("[sira] No model name was specified or persisted.")
     
     try:
         cv_data = load_validate(cv_path)
@@ -56,9 +56,9 @@ def main():
         with open(job_desc_path, "r", encoding="utf-8") as f:
             job_desc = f.read()
         print(f"using {model_name} from {cv_path}")
-    except FileNotFoundError:
+    except FileNotFoundError as e:
         print(f"[sira] Job description file '{job_desc_path}' not found.")
-        raise SystemExit from FileNotFoundError 
+        raise SystemExit from e
     except Exception as e:
         print(f"[sira] Failed to read job description from '{job_desc_path}'")
         raise SystemExit from e
@@ -70,7 +70,7 @@ def main():
             "job_desc": job_desc,
         })   
     json_output_cv = result["output_cv"].model_dump()
-    new_cv = md_cv(json_output_cv) 
+    new_cv = generate_markdown_cv(json_output_cv) 
     print("="*30)
     print(new_cv)  
     print("="*30)
@@ -92,7 +92,7 @@ Do you want to:
             "job_desc": job_desc,
              })   
             json_output_cv = result["output_cv"].model_dump()
-            new_cv = md_cv(json_output_cv) 
+            new_cv = generate_markdown_cv(json_output_cv) 
             print("="*30)
             print(new_cv)  
             print("="*30)         
@@ -101,12 +101,14 @@ Do you want to:
         
         
         elif user_input == "2":
-                for file_num in range(1, 100):
+                file_num = 1
+                while True:
                     path = cv_dir / f"tailored_cv_{file_num}.md"
                     if not path.exists():
                         path.write_text(new_cv, encoding="utf-8")
                         print(f"tailored CV saved as {path} ✓")
                         break
+                    file_num += 1
                 continue
                   
     
