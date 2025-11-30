@@ -18,7 +18,7 @@ or source zip.
   "projects": []
 }
 ```
-[see the data.json for reference]()
+[see the data.json for reference](https://github.com/lamaplays/Sira/blob/master/cv.json)
 
  - run `sira` or `sira-h` to display available arguments.
 ### features
@@ -42,6 +42,7 @@ or source zip.
   
 
   
+
 
 
 
