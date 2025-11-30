@@ -31,7 +31,6 @@ def parsing_args():
     )
     parser.add_argument(
         "-s", "--store",
-        metavar="STORE",
         action="store_true",
         help="Save CV path and model choice for future runs"
     )
