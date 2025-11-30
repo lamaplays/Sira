@@ -1,7 +1,7 @@
 <h1 align=center >SIRA: CV tailoring AI Tool</h1>
 
 ### Installation
-tool made available from the [releases]() page as either a .whl file
+tool made available from the [releases](https://github.com/lamaplays/Sira/releases) page as either a .whl file
 ```
 pip install sira-0.1.0-py3-none-any.whl
 ```
@@ -42,6 +42,7 @@ or source zip.
   
 
   
+
 
 
 
