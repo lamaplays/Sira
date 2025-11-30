@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore", message=".*Pydantic V1.*")
+
 from sira.agent import build_graph
 from sira.utils import load_validate
 from sira.generators.cv_generator import md_cv
