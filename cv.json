@@ -1,0 +1,63 @@
+{
+  "personal_statement": "Motivated computer science student passionate about building reliable and user-focused software. I enjoy solving real problems through code, experimenting with emerging technologies, and continuously improving my technical abilities. I aim to join a fast-paced tech environment where I can contribute, grow, and learn from experienced professionals.",
+
+  "education": {
+    "university": "King Abdulaziz University",
+    "degree": "Bachelor of Computer Science",
+    "honours": "Dean’s List",
+    "gpa": "4.75/5",
+    "dates": "Sep 2021 – Jun 2025"
+  },
+
+  "experience": [
+    {
+      "title": "Software Development Intern",
+      "place": "Saudi Digital Academy",
+      "dates": "Jul 2024 – Sep 2024",
+      "bullets": [
+        "Assisted in developing API-driven services and optimizing backend data flows.",
+        "Contributed to UI features and bug fixes in a web-based internal system.",
+        "Collaborated in an agile team environment using GitHub for version control."
+      ]
+    },
+    {
+      "title": "AI Bootcamp Participant",
+      "place": "Future Tech Institute",
+      "dates": "Jan 2025",
+      "bullets": [
+        "Completed hands-on training covering machine learning pipelines and model evaluation.",
+        "Built small predictive models focusing on data preprocessing and validation techniques."
+      ]
+    }
+  ],
+
+  "skills": {
+    "programming": "Python, JavaScript, C++, SQL",
+    "libraries": "Django, React, HTML, CSS, Bootstrap, Git, OpenCV, Pandas, TensorFlow",
+    "other": "Familiar with cloud deployment, RESTful APIs, and Agile workflows. Strong teamwork, communication, and problem-solving abilities."
+  },
+
+  "projects": [
+    {
+      "projectName": "Smart Crop Detection System",
+      "bullets": [
+        "Developed a computer vision model to detect crop types using image processing techniques.",
+        "Built a web dashboard where users can upload crop images and receive real-time classification results."
+      ]
+    },
+    {
+      "projectName": "Campus Event Management App",
+      "bullets": [
+        "Designed and implemented a cross-platform mobile app using React and Firebase.",
+        "Enabled student authentication and event registration with push notification reminders."
+      ]
+    },
+    {
+      "projectName": "Personal Portfolio Website",
+      "bullets": [
+        "Created a responsive portfolio site showcasing projects and technical skills.",
+        "Implemented reusable UI components and optimized performance for faster loading."
+      ]
+    }
+  ]
+}
