@@ -1,14 +1,14 @@
-!<h1 style="text-align:center;">SIRA: CV tailoring AI Tool</h1>
+<h1 align=center >SIRA: CV tailoring AI Tool</h1>
 
 ### Installation
 tool made available from the [releases]() page as either a .whl file
-'''
+```
 pip install sira-0.1.0-py3-none-any.whl
-'''
+```
 or source zip.
-### usage
+### Usage
  - This tool uses ollama to talk to your local LLMs, make sure you have ollama and the desired LLM installaed on your machine.
- - Make sure that ur input cv follow this specific JSON format:
+ - Make sure you inpute cv is in JSON format follow this specific nature:
  ```
 {
   "personal_statement": "",
@@ -26,23 +26,23 @@ or source zip.
 - digest JSON CV and output formated md file.
 - CLI based.
 
-  ### future plans
+ ### Roadmap
   -  introduce huggingface models
   -  wider range of templates
   -  less restrictive input
 
+<h3 align=center>  made with ❤️ </h3>
+<h5 align=center> any feedback would be appreciated!</h5>
 
-### made with ❤️ 
-### any feedback would be appreciated
-
-
-  
 
   
 
   
 
   
+
+  
+
 
 
 
