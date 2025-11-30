@@ -8,7 +8,10 @@ from sira.cli import parsing_args
 from pathlib import Path
 from sira.config import load_config, save_config
 from sira.llm_choice import get_llm
+import os
 
+cv_dir = Path("tailored_CVs")
+cv_dir.mkdir(exist_ok=True)
 
 def main():
     args = parsing_args()
@@ -36,17 +39,17 @@ def main():
     try:
         cv_data = load_validate(cv_path)
     except Exception as e:
-        print(f"[sira] Failed to load or validate CV data from '{cv_path}': {e}")
+        print(f"[sira] Failed to load or validate CV data from '{cv_path}'")
         raise SystemExit from e
     try:    
         llm = get_llm(model_name)
     except Exception as e:
-        print(f"[sira] Failed to initialize LLM '{model_name}': {e}")
+        print(f"[sira] Failed to initialize LLM '{model_name}'")
         raise SystemExit from e
     try:        
         graph = build_graph(llm)
     except Exception as e:
-        print(f"[sira] Failed to build graph with LLM '{model_name}': {e}")
+        print(f"[sira] Failed to build graph with LLM '{model_name}'")
         raise SystemExit from e
     try:    
         job_desc_path = args.job
@@ -57,7 +60,7 @@ def main():
         print(f"[sira] Job description file '{job_desc_path}' not found.")
         raise SystemExit from FileNotFoundError 
     except Exception as e:
-        print(f"[sira] Failed to read job description from '{job_desc_path}': {e}")
+        print(f"[sira] Failed to read job description from '{job_desc_path}'")
         raise SystemExit from e
     
     
@@ -76,10 +79,11 @@ def main():
     while True:
         user_input = input("""
 Do you want to:
-1.rerun tailoring\n
-2.save current tailored cv\n
-3.change model\n
-4.exit\n""").strip()
+1.rerun tailoring
+2.save current tailored cv
+3.change model
+4.exit
+""").strip()
         if user_input == "1":
             print(f"Using {model_name} with CV from {cv_path}")
             print("Tailoring in process...\n")
@@ -97,10 +101,13 @@ Do you want to:
         
         
         elif user_input == "2":
-            with open("tailored_cv.md","w",encoding="utf-8") as f:
-                f.write(new_cv)
-            print("tailored CV saved as tailored_cv.md")
-            continue
+                for file_num in range(1, 100):
+                    path = cv_dir / f"tailored_cv_{file_num}.md"
+                    if not path.exists():
+                        path.write_text(new_cv, encoding="utf-8")
+                        print(f"tailored CV saved as {path} ✓")
+                        break
+                continue
                   
     
         elif user_input == "3":
@@ -115,7 +122,7 @@ Do you want to:
                 llm = new_llm
                 graph = new_graph
                 model_name = new_model
-                print(f"Model changed to {model_name}\n")
+                print(f"Model changed to {model_name} ✓ \n")
             except Exception as e:
                 print(f"[sira] Failed to switch to model '{new_model}': {e}")
                 print(f"Keeping current model: {model_name}\n")

@@ -19,7 +19,7 @@ def md_cv(json_cv: dict):
     template = env.get_template("cv_template.md")
     md_output = template.render(**json_cv)
 
-    print("Tailored markdown CV generated\nPreview")    
+    print("Tailored markdown CV generated ✓\nPreview")    
         
     return md_output
     
